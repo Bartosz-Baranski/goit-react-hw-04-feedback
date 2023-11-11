@@ -1,36 +1,25 @@
-import React, { Component } from 'react';
-import css from './feedback.module.css';
-import FeedbackOptions from './FeedbackOptions';
-import Statistics from './Statistic';
+import React, { useState } from 'react';
 
-class Feedback extends Component {
-  static defaultProps = {
-    step: 1,
-  };
-  state = { good: 0, neutral: 0, bad: 0 };
+import Statistics from '../Statistic/Statistic';
+import FeedbackOptions from '../FeedbackOptions/FeedbackOptions';
 
-  handleChange = type => {
-    this.setState(prevState => ({
-      [type]: prevState[type] + this.props.step,
-    }));
+import css from './Feedback.module.css';
+
+export const Feedback = () => {
+  const [feedback, setFeedback] = useState({ good: 0, neutral: 0, bad: 0 });
+
+  const handleChange = type => {
+    setFeedback(prevState => ({ ...prevState, [type]: prevState[type] + 1 }));
   };
 
-  render() {
-    const { good, neutral, bad } = this.state;
+  const { good, neutral, bad } = feedback;
 
-    return (
-      <div className={css.statistic_body}>
-        <h1 className={css.statistic_title}>Please leave feedback</h1>
-        <FeedbackOptions
-          good={good}
-          neutral={neutral}
-          bad={bad}
-          FeedbackChoice={this.handleChange}
-        />
-        <h2 className={css.statistic_body}>Statistic</h2>
-        <Statistics good={good} neutral={neutral} bad={bad} />
-      </div>
-    );
-  }
-}
-export default Feedback;
+  return (
+    <div className={css.statistic_body}>
+      <h1 className={css.statistic_title}>Please leave feedback</h1>
+      <FeedbackOptions FeedbackChoice={handleChange} />
+      <h2 className={css.statistic_body}>Statistic</h2>
+      <Statistics good={good} neutral={neutral} bad={bad} />
+    </div>
+  );
+};

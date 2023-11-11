@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import css from './feedback.module.css';
 
-class FeedbackOptions extends Component {
+import css from './FeedbackOptions.module.css';
+
+export default class FeedbackOptions extends Component {
   choiceGood = () => {
     this.props.FeedbackChoice('good');
   };
@@ -42,4 +43,3 @@ class FeedbackOptions extends Component {
     );
   }
 }
-export default FeedbackOptions;
